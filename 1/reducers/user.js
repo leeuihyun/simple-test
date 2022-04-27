@@ -44,13 +44,14 @@ const user = handleActions(
             }),
         [CREATE_USER_SUCCESS]: (state, action) =>
             produce(state, (draft) => {
+                draft.users.push(action.data);
                 draft.createUserLoading = false;
                 draft.createUserDone = true;
             }),
         [CREATE_USER_FAILURE]: (state, action) =>
             produce(state, (draft) => {
                 draft.createUserLoading = false;
-                draft.createUserError = action.response.data;
+                draft.createUserError = action.data.error;
             }),
         [READ_USER_REQUEST]: (state, action) =>
             produce(state, (draft) => {
@@ -60,13 +61,14 @@ const user = handleActions(
             }),
         [READ_USER_SUCCESS]: (state, action) =>
             produce(state, (draft) => {
+                draft.users = action.data;
                 draft.readUserLoading = false;
                 draft.readUserDone = true;
             }),
         [READ_USER_FAILURE]: (state, action) =>
             produce(state, (draft) => {
                 draft.readUserLoading = false;
-                draft.readUserError = action.response.data;
+                draft.readUserError = action.data.error;
             }),
         [UPDATE_USER_REQUEST]: (state, action) =>
             produce(state, (draft) => {
@@ -76,13 +78,19 @@ const user = handleActions(
             }),
         [UPDATE_USER_SUCCESS]: (state, action) =>
             produce(state, (draft) => {
+                const user = draft.users.find((v) => v.id === action.data.id);
+                user = {
+                    ...user,
+                    username: action.data.username,
+                    content: action.data.content,
+                };
                 draft.updateUserLoading = false;
                 draft.updateUserDone = true;
             }),
         [UPDATE_USER_FAILURE]: (state, action) =>
             produce(state, (draft) => {
                 draft.updateUserLoading = false;
-                draft.updateUserError = action.response.data;
+                draft.updateUserError = action.data.error;
             }),
         [DELETE_USER_REQUEST]: (state, action) =>
             produce(state, (draft) => {
@@ -92,13 +100,14 @@ const user = handleActions(
             }),
         [DELETE_USER_SUCCESS]: (state, action) =>
             produce(state, (draft) => {
+                draft.users.filter((v) => v.id !== action.data.id);
                 draft.deleteUserLoading = false;
                 draft.deleteUserDone = true;
             }),
         [DELETE_USER_FAILURE]: (state, action) =>
             produce(state, (draft) => {
                 draft.deleteUserLoading = false;
-                draft.deleteUserError = action.response.data;
+                draft.deleteUserError = action.data.error;
             }),
     },
     initialState

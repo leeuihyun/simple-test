@@ -17,7 +17,7 @@
     },
     "homepage": "https://github.com/leeuihyun/simple-test#readme",
     "dependencies": {
-        "antd": "^4.2.5",
+        "antd": "^4.3.0",
         "axios": "^0.27.1",
         "immer": "^9.0.12",
         "next": "^9.5.5",

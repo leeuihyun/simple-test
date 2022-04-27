@@ -14,8 +14,8 @@ import {
     UPDATE_USER_SUCCESS,
 } from "../reducers/user";
 
-function createUserApi({ data }) {
-    axios.post("/create", data);
+function createUserApi(data) {
+    axios.post("/users", data);
 }
 
 function* createUser(action) {
