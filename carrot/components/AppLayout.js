@@ -1,49 +1,28 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import { GET_PRODUCT_REQUEST } from "../reducers/product";
+import Link from "next/link";
+import styled from "styled-components";
+import ProductCard from "./ProductCard";
+
 //.onSnapshot(function (doc) {
 //    console.log(doc.data());
 //});
 
 function AppLayout({ children }) {
-    const obj = [
-        {
-            name: "1",
-            price: 1,
-        },
-    ];
-    useEffect(() => {
-        try {
-            firebase
-                .firestore()
-                .collection("products")
-                .get()
-                .then((res) => {
-                    res.forEach((doc) => {
-                        console.log(doc.data());
-                        obj.push(doc.data());
-                    });
-                });
-        } catch (error) {
-            console.log(error);
-        }
-    }, []);
-    const onClick = () => {
-        console.log(obj);
-    };
     return (
-        <>
+        <div>
             <Navbar bg="light" expand="lg">
                 <Container>
-                    <Navbar.Brand href="#home" onClick={onClick}>
-                        Carrot
-                    </Navbar.Brand>
+                    <Navbar.Brand href="#home">Carrot</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
                             <Nav.Link href="#home">Home</Nav.Link>
-                            <Nav.Link href="#link">Link</Nav.Link>
+                            <Nav.Link href="/check">Check</Nav.Link>
                             <NavDropdown
                                 title="Dropdown"
                                 id="basic-nav-dropdown"
@@ -66,7 +45,12 @@ function AppLayout({ children }) {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-        </>
+            <Link href="/uploadProduct">
+                <a>버튼</a>
+            </Link>
+            {children &&
+                children.map((v) => <ProductCard data={v}></ProductCard>)}
+        </div>
     );
 }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Router from "next/router";
 
 const ProductBox = styled.div`
     display: flex;
@@ -30,8 +31,11 @@ const ProductBox = styled.div`
     }
 `;
 function ProductCard({ data }) {
+    const onClickBox = () => {
+        Router.push("/changeProduct");
+    };
     return (
-        <ProductBox>
+        <ProductBox onClick={onClickBox}>
             <div>
                 <img
                     className="thumbnail"

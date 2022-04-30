@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { ADD_PRODUCT_REQUEST } from "../reducers/product";
 import Router from "next/router";
+import shortId from "shortid";
 
 const Wrapper = styled.div`
     padding: 5px;
@@ -38,7 +39,6 @@ const TextArea = styled.textarea`
 `;
 function UploadProduct() {
     const dispatch = useDispatch();
-
     const [name, setName] = useState("");
     const [content, setContent] = useState("");
     const [price, setPrice] = useState(0);
@@ -47,6 +47,7 @@ function UploadProduct() {
             dispatch({
                 type: ADD_PRODUCT_REQUEST,
                 data: {
+                    id: shortId.generate(),
                     name: name,
                     price: price,
                     content: content,
