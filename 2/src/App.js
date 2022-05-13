@@ -1,10 +1,13 @@
 import "./App.css";
-import Home from "./components/Home";
+import Main from "./pages/Main";
+import Add from "./pages/Add";
+import { Route } from "react-router-dom";
 
 function App() {
     return (
         <>
-            <Home></Home>
+            <Route exact path="/" component={Main} />
+            <Route path="/add" component={Add} />
         </>
     );
 }
