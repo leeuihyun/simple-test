@@ -23,7 +23,6 @@ function Home() {
             )
         );
     }, []);
-
     const onSubmitForm = useCallback(
         async (e) => {
             e.preventDefault();
@@ -120,7 +119,7 @@ function Home() {
                     </button>
                 </div>
             </form>
-            <BookList />
+            <BookList books={books} />
         </div>
     );
 }
