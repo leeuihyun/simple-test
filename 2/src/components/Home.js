@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import { useEffect } from "react";
 import db from "../firebase";
 import useTool from "../hook/useTool";
+import BookList from "./BookList";
 
 function Home() {
     const [title, onChangeTitle, setTitle] = useTool("");
@@ -119,6 +120,7 @@ function Home() {
                     </button>
                 </div>
             </form>
+            <BookList />
         </div>
     );
 }
