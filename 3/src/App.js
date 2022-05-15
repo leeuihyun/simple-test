@@ -5,7 +5,7 @@ import {
     decrement,
     incrementByAmount,
     selectCount,
-} from "../src/store/counter";
+} from "./store/counter";
 import { Route, Link } from "react-router-dom";
 
 import MainPage from "./pages/MainPage";
@@ -35,6 +35,7 @@ function App() {
                     incrementByAmount
                 </button>
                 <Link to="/main">링크</Link>
+                <div>git test</div>
             </div>
         </>
     );
