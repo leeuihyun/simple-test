@@ -1,5 +1,4 @@
 import { takeLatest, put, delay, call } from "redux-saga/effects";
-import axios from "axios";
 import {
     LOG_IN_FAILURE,
     LOG_IN_REQUEST,
@@ -9,15 +8,13 @@ import {
     SIGN_UP_SUCCESS,
 } from "../reducers/user";
 
-function logInAPI(data) {
-    return axios.post("/", data);
-}
 function* logIn(action) {
     try {
-        const res = yield call(logInAPI, action.data);
+        //const res = yield call(logInAPI, action.data);
+        yield delay(1000);
         yield put({
             type: LOG_IN_SUCCESS,
-            data: res.data,
+            data: action.data,
         });
     } catch (error) {
         console.error(error);
@@ -28,15 +25,13 @@ function* logIn(action) {
     }
 }
 
-function signUpAPI(data) {
-    return axios.post("/", data);
-}
 function* signUp(action) {
     try {
-        const res = yield call(signUpAPI, action.data);
+        //const res = yield call(signUpAPI, action.data);
+        yield delay(1000);
         yield put({
             type: SIGN_UP_SUCCESS,
-            data: res.data,
+            data: action.data,
         });
     } catch (error) {
         console.error(error);
