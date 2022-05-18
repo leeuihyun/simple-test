@@ -22,19 +22,12 @@ export const SIGN_UP_REQUEST = "SIGN_UP_REQUEST";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 
-export const CHECK_USER_REQUEST = "CHECK_USER_REQUEST";
-export const CHECK_USER_SUCCESS = "CHECK_USER_SUCCESS";
-export const CHECK_USER_FAILURE = "CHECK_USER_FAILURE";
-
 const initialState = {
     allUsers: [], //모든 유저 정보 담고 있는 배열
     user: null, //현재 로그인한 유저 정보
     signUpLoading: false,
     signUpDone: false,
     signUpError: null,
-    checkUserLoading: false,
-    checkUserDone: false,
-    checkUserError: null,
     logInLoading: false,
     logInDone: false,
     logInError: null,
@@ -52,6 +45,7 @@ const initialState = {
 const dummyUser = (data) => ({
     id: data.id,
     items: data.items,
+    buy: data.buy,
 });
 
 const dummyAllUser = (data) => ({
@@ -74,7 +68,15 @@ const user = handleActions(
             }),
         [LOG_IN_SUCCESS]: (state, action) =>
             produce(state, (draft) => {
-                draft.user = dummyUser(action.data);
+                const us = draft.allUsers.find(
+                    (v) =>
+                        v.email === action.data.email &&
+                        v.password === action.data.password
+                );
+                if (us) {
+                    draft.user = dummyUser(us);
+                }
+
                 draft.logInLoading = false;
                 draft.logInDone = true;
             }),
@@ -148,9 +150,6 @@ const user = handleActions(
                 draft.signUpLoading = false;
                 draft.signUpError = action.error;
             }),
-        [CHECK_USER_REQUEST]: (state, action) => produce(state, (draft) => {}),
-        [CHECK_USER_SUCCESS]: (state, action) => produce(state, (draft) => {}),
-        [CHECK_USER_FAILURE]: (state, action) => produce(state, (draft) => {}),
     },
     initialState
 );
