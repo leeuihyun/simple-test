@@ -1,0 +1,8 @@
+.App {
+    font-family: "Ssurround";
+}
+
+@font-face {
+    font-family: "Ssurround";
+    src: url("./fonts/Cafe24SsurroundAir.ttf");
+}
