@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import useTool from "../hook/useTool";
 import { SIGN_UP_REQUEST } from "../reducers/user";
+import { Link } from "react-router-dom";
 
 function SignUp() {
     const [name, onChangeName, setName] = useTool("");
@@ -34,6 +35,9 @@ function SignUp() {
     );
     return (
         <div>
+            <div>
+                <Link to="/login">로그인페이지</Link>
+            </div>
             <form onSubmit={onSubmitForm}>
                 <div>
                     <label htmlFor="name">이름</label>
