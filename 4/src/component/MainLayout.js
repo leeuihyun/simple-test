@@ -3,6 +3,10 @@ import styled, { keyframes } from "styled-components";
 import logo from "../images/logo_transparent.png";
 import about from "/Users/iuihyeon/Desktop/or/simple-test/4/src/images/reading-g147138a09_1920.jpg";
 import person from "/Users/iuihyeon/Desktop/or/simple-test/4/src/images/white-male-gc118c610a_1280.jpg";
+import { Link } from "react-router-dom";
+import RotationBook from "./RotationBook";
+import { useSelector } from "react-redux";
+import Footer from "./Footer";
 
 const Container = styled.div`
     width: 100%;
@@ -33,6 +37,10 @@ const Header = styled.div`
             margin-left: 3rem;
         }
     }
+    a {
+        text-decoration: none;
+        color: black;
+    }
 `;
 const About = styled.div`
     display: flex;
@@ -44,18 +52,20 @@ const About = styled.div`
     img {
         width: 100%;
         height: 100%;
-        opacity: 0.8;
+        filter: brightness(55%);
+        //opacity: 0.6;
     }
     .text {
         padding: 1rem;
         position: absolute;
-        color: black;
+        color: white;
         font-family: "Ssurround";
         font-weight: bold;
-        font-size: 3rem;
+        font-size: 5rem;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        text-shadow: 4px 4px 4px gray;
+        transform: translate(-50%, -50%); //중앙 정렬 하기 위함.
     }
     position: relative;
 `;
@@ -84,17 +94,28 @@ const Introduce = styled.div`
 `;
 const RotationAnimation = keyframes`
     from{
-        transform : translateX(0px);
+        transform : translateX(-100%);
     }
     to{
-        transform : translateX(50px);
+        transform : translateX(100%);
     }
 `;
+const TextBoxWrapper = styled.div`
+    width: 100%;
+    height: 10vh;
+    font-family: "Ssurround";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 2px gray;
+`;
 const RotateWrapper = styled.div`
-    width: 30px;
-    height: 30px;
-    background-color: white;
-    animation: ${RotationAnimation} 2s 1s ease-in-out infinite alternate;
+    display: flex;
+    animation: ${RotationAnimation} 4s 1s ease-in-out infinite alternate;
+    margin-left: 5rem;
 `;
 const RotateBox = styled.div`
     width: 100%;
@@ -105,6 +126,19 @@ const RotateBox = styled.div`
     justify-content: center;
 `;
 function MainLayout() {
+    const { booksList } = useSelector((state) => state.books);
+    //const randomBookLength = Math.floor(Math.random() * booksList.length); RotationBook의 props => booksList[randomBookLength] 주면 될 것 같음
+    function arrPush() {
+        const arr = [];
+        for (let i = 0; i < 5; i++) {
+            arr.push(
+                <RotateWrapper>
+                    <RotationBook />
+                </RotateWrapper>
+            );
+        }
+        return arr;
+    }
     return (
         <Container>
             <Header>
@@ -112,11 +146,19 @@ function MainLayout() {
                 <div className="navigation">
                     <ul>
                         <li>
-                            <div style={{ background: "red" }}>1</div>
+                            <div>
+                                <Link to="/login">로그인</Link>
+                            </div>
                         </li>
-                        <li style={{ background: "blue" }}>1</li>
                         <li>
-                            <div>1</div>
+                            <div>
+                                <Link to="/bookregister">책등록</Link>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <Link to="/signup">회원가입</Link>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -141,9 +183,9 @@ function MainLayout() {
                     <img src={person} alt="person_image" />
                 </div>
             </Introduce>
-            <RotateBox>
-                <RotateWrapper></RotateWrapper>
-            </RotateBox>
+            <TextBoxWrapper>이런 책들은 어떠신가요 ?</TextBoxWrapper>
+            <RotateBox>{arrPush()}</RotateBox>
+            <Footer>개발자 : 이의현</Footer>
         </Container>
         /*`<div class="container">
             <header></header> dd

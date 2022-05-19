@@ -1,14 +1,15 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useTool from "../hook/useTool";
 import { LOG_IN_REQUEST } from "../reducers/user";
+import { withRouter } from "react-router-dom";
 
-function Login() {
+function Login({ history }) {
     const [email, onChangeEmail, setEmail] = useTool("");
     const [password, onChangePassword, setPassword] = useTool("");
 
     const dispatch = useDispatch();
-
+    const { user } = useSelector((state) => state.user);
     const onSubmitForm = useCallback(
         (e) => {
             e.preventDefault();
@@ -24,6 +25,12 @@ function Login() {
         },
         [email, password]
     );
+    useEffect(() => {
+        if (user) {
+            history.push("/");
+        }
+    }, [user]);
+
     return (
         <div>
             <form onSubmit={onSubmitForm}>
@@ -55,4 +62,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default withRouter(Login);
