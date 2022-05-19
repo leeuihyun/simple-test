@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 import logo from "../images/logo_transparent.png";
 import about from "/Users/iuihyeon/Desktop/or/simple-test/4/src/images/reading-g147138a09_1920.jpg";
 import person from "/Users/iuihyeon/Desktop/or/simple-test/4/src/images/white-male-gc118c610a_1280.jpg";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     width: 100%;
@@ -33,6 +34,10 @@ const Header = styled.div`
             margin-left: 3rem;
         }
     }
+    a {
+        text-decoration: none;
+        color: black;
+    }
 `;
 const About = styled.div`
     display: flex;
@@ -44,18 +49,20 @@ const About = styled.div`
     img {
         width: 100%;
         height: 100%;
-        opacity: 0.8;
+        filter: brightness(55%);
+        //opacity: 0.6;
     }
     .text {
         padding: 1rem;
         position: absolute;
-        color: black;
+        color: white;
         font-family: "Ssurround";
         font-weight: bold;
-        font-size: 3rem;
+        font-size: 5rem;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        text-shadow: 4px 4px 4px gray;
+        transform: translate(-50%, -50%); //중앙 정렬 하기 위함.
     }
     position: relative;
 `;
@@ -112,11 +119,19 @@ function MainLayout() {
                 <div className="navigation">
                     <ul>
                         <li>
-                            <div style={{ background: "red" }}>1</div>
+                            <div>
+                                <Link to="/login">로그인</Link>
+                            </div>
                         </li>
-                        <li style={{ background: "blue" }}>1</li>
                         <li>
-                            <div>1</div>
+                            <div>
+                                <Link to="/bookregister">책등록</Link>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <Link to="/signup">회원가입</Link>
+                            </div>
                         </li>
                     </ul>
                 </div>
