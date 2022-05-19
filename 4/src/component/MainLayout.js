@@ -6,6 +6,7 @@ import person from "/Users/iuihyeon/Desktop/or/simple-test/4/src/images/white-ma
 import { Link } from "react-router-dom";
 import RotationBook from "./RotationBook";
 import { useSelector } from "react-redux";
+import Footer from "./Footer";
 
 const Container = styled.div`
     width: 100%;
@@ -103,6 +104,13 @@ const TextBoxWrapper = styled.div`
     width: 100%;
     height: 10vh;
     font-family: "Ssurround";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 2px gray;
 `;
 const RotateWrapper = styled.div`
     display: flex;
@@ -175,7 +183,9 @@ function MainLayout() {
                     <img src={person} alt="person_image" />
                 </div>
             </Introduce>
+            <TextBoxWrapper>이런 책들은 어떠신가요 ?</TextBoxWrapper>
             <RotateBox>{arrPush()}</RotateBox>
+            <Footer>개발자 : 이의현</Footer>
         </Container>
         /*`<div class="container">
             <header></header> dd
