@@ -4,6 +4,8 @@ import logo from "../images/logo_transparent.png";
 import about from "/Users/iuihyeon/Desktop/or/simple-test/4/src/images/reading-g147138a09_1920.jpg";
 import person from "/Users/iuihyeon/Desktop/or/simple-test/4/src/images/white-male-gc118c610a_1280.jpg";
 import { Link } from "react-router-dom";
+import RotationBook from "./RotationBook";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
     width: 100%;
@@ -91,17 +93,21 @@ const Introduce = styled.div`
 `;
 const RotationAnimation = keyframes`
     from{
-        transform : translateX(0px);
+        transform : translateX(-100%);
     }
     to{
-        transform : translateX(50px);
+        transform : translateX(100%);
     }
 `;
+const TextBoxWrapper = styled.div`
+    width: 100%;
+    height: 10vh;
+    font-family: "Ssurround";
+`;
 const RotateWrapper = styled.div`
-    width: 30px;
-    height: 30px;
-    background-color: white;
-    animation: ${RotationAnimation} 2s 1s ease-in-out infinite alternate;
+    display: flex;
+    animation: ${RotationAnimation} 4s 1s ease-in-out infinite alternate;
+    margin-left: 5rem;
 `;
 const RotateBox = styled.div`
     width: 100%;
@@ -112,6 +118,19 @@ const RotateBox = styled.div`
     justify-content: center;
 `;
 function MainLayout() {
+    const { booksList } = useSelector((state) => state.books);
+    //const randomBookLength = Math.floor(Math.random() * booksList.length); RotationBook의 props => booksList[randomBookLength] 주면 될 것 같음
+    function arrPush() {
+        const arr = [];
+        for (let i = 0; i < 5; i++) {
+            arr.push(
+                <RotateWrapper>
+                    <RotationBook />
+                </RotateWrapper>
+            );
+        }
+        return arr;
+    }
     return (
         <Container>
             <Header>
@@ -156,9 +175,7 @@ function MainLayout() {
                     <img src={person} alt="person_image" />
                 </div>
             </Introduce>
-            <RotateBox>
-                <RotateWrapper></RotateWrapper>
-            </RotateBox>
+            <RotateBox>{arrPush()}</RotateBox>
         </Container>
         /*`<div class="container">
             <header></header> dd
