@@ -1,42 +1,13 @@
-import React, { useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-    increment,
-    decrement,
-    incrementByAmount,
-    selectCount,
-} from "./store/counter";
-import { Route, Link } from "react-router-dom";
-
+import React from "react";
+import { Route } from "react-router-dom";
 import MainPage from "./pages/MainPage";
-
+import ListPage from "./pages/ListPage";
 function App() {
-    const dispatch = useDispatch();
-    const count = useSelector(selectCount);
-
-    const onClickIncrement = useCallback(() => {
-        dispatch(increment());
-    }, []);
-    const onClickDecrement = useCallback(() => {
-        dispatch(decrement());
-    }, []);
-    const onClickIncrementAmount = useCallback(() => {
-        dispatch(incrementByAmount(5));
-    }, []);
+    //const count2 = useSelector((state) => state.counter.value); 이런식으로도 접근이 가능하다 원래 사용했던 것처럼.
     return (
         <>
-            <Route path="/main" component={MainPage} />
-
-            <div>
-                <h1>{count}</h1>
-                <button onClick={() => dispatch(increment())}>increment</button>
-                <button onClick={onClickDecrement}>decrement</button>
-                <button onClick={onClickIncrementAmount}>
-                    incrementByAmount
-                </button>
-                <Link to="/main">링크</Link>
-                <div>git test</div>
-            </div>
+            <Route exact path="/" component={MainPage} />
+            <Route path="/list" component={ListPage}></Route>
         </>
     );
 }
