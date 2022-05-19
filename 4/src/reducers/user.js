@@ -6,24 +6,29 @@ export const LOG_IN_REQUEST = "LOG_IN_REQUEST";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
 export const LOG_IN_FAILURE = "LOG_IN_FAILURE";
 
-export const ADD_BOOK_USER_REQUEST = "ADD_BOOK_USER_REQUEST";
 export const ADD_BOOK_USER_SUCCESS = "ADD_BOOK_USER_SUCCESS";
-export const ADD_BOOK_USER_FAILURE = "ADD_BOOK_USER_FAILURE";
 
-export const DELETE_BOOK_USER_REQUEST = "DELETE_BOOK_USER_REQUEST";
 export const DELETE_BOOK_USER_SUCCESS = "DELETE_BOOK_USER_SUCCESS";
-export const DELETE_BOOK_USER_FAILURE = "DELETE_BOOK_USER_FAILURE";
 
-export const FIX_BOOK_USER_REQUEST = "FIX_BOOK_USER_REQUEST";
 export const FIX_BOOK_USER_SUCCESS = "FIX_BOOK_USER_SUCCESS";
-export const FIX_BOOK_USER_FAILURE = "FIX_BOOK_USER_FAILURE";
 
 export const SIGN_UP_REQUEST = "SIGN_UP_REQUEST";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 
 const initialState = {
-    allUsers: [], //모든 유저 정보 담고 있는 배열
+    allUsers: [
+        {
+            id: "random_1_1",
+            email: "lee",
+            password: "123123",
+            name: "leeuihyun",
+            city: "seoul",
+            age: 26,
+            items: [],
+            buy: [],
+        },
+    ], //모든 유저 정보 담고 있는 배열
     user: null, //현재 로그인한 유저 정보
     signUpLoading: false,
     signUpDone: false,
@@ -31,15 +36,6 @@ const initialState = {
     logInLoading: false,
     logInDone: false,
     logInError: null,
-    addBookUserLoading: false,
-    addBookUserDone: false,
-    addBookUserError: null,
-    fixBookUserLoading: false,
-    fixBookUserDone: false,
-    fixBookUserError: null,
-    deleteBookUserLoading: false,
-    deleteBookUserDone: false,
-    deleteBookUserError: null,
 };
 
 const dummyUser = (data) => ({
@@ -85,54 +81,28 @@ const user = handleActions(
                 draft.logInLoading = false;
                 draft.logInError = action.error;
             }),
-        [ADD_BOOK_USER_REQUEST]: (state, action) =>
-            produce(state, (draft) => {
-                draft.addBookUserLoading = true;
-                draft.addBookUserDone = false;
-                draft.addBookUserError = null;
-            }),
         [ADD_BOOK_USER_SUCCESS]: (state, action) =>
             produce(state, (draft) => {
-                draft.addBookUserLoading = false;
-                draft.addBookUserDone = true;
-            }),
-        [ADD_BOOK_USER_FAILURE]: (state, action) =>
-            produce(state, (draft) => {
-                draft.addBookUserLoading = false;
-                draft.addBookUserError = action.error;
-            }),
-        [DELETE_BOOK_USER_REQUEST]: (state, action) =>
-            produce(state, (draft) => {
-                draft.deleteBookUserLoading = true;
-                draft.deleteBookUserDone = false;
-                draft.deleteBookUserError = null;
+                const findUser = draft.allUsers.find(
+                    (v) => v.id === action.data.User.id
+                );
+                findUser.items.unshift(action.data.Book);
+                draft.user.items.unshift(action.data.Book.id);
             }),
         [DELETE_BOOK_USER_SUCCESS]: (state, action) =>
             produce(state, (draft) => {
-                draft.deleteBookUserLoading = false;
-                draft.deleteBookUserDone = true;
-            }),
-        [DELETE_BOOK_USER_FAILURE]: (state, action) =>
-            produce(state, (draft) => {
-                draft.deleteBookUserLoading = false;
-                draft.deleteBookUserError = action.error;
-            }),
-        [FIX_BOOK_USER_REQUEST]: (state, action) =>
-            produce(state, (draft) => {
-                draft.fixBookUserLoading = true;
-                draft.fixBookUserDone = false;
-                draft.fixBookUserError = null;
+                const findUser = draft.allUsers.find(
+                    (v) => v.id === action.data.User.id
+                );
+                findUser.items = findUser.items.filter(
+                    (v) => v.id !== action.data.Book.id
+                );
+                draft.user.items = draft.user.items.filter(
+                    (v) => v !== action.data.Book.id
+                );
             }),
         [FIX_BOOK_USER_SUCCESS]: (state, action) =>
-            produce(state, (draft) => {
-                draft.fixBookUserLoading = false;
-                draft.fixBookUserDone = true;
-            }),
-        [FIX_BOOK_USER_FAILURE]: (state, action) =>
-            produce(state, (draft) => {
-                draft.fixBookUserLoading = false;
-                draft.fixBookUserError = action.error;
-            }),
+            produce(state, (draft) => {}), //수정해야함
         [SIGN_UP_REQUEST]: (state, action) =>
             produce(state, (draft) => {
                 draft.signUpLoading = true;
