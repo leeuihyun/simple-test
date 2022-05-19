@@ -29,7 +29,7 @@ const initialState = {
 
 const dummyBook = (data) => ({
     Book: {
-        id: uuidv4(),
+        id: data.Book.id, //dispatch할때 id 넣어주기
         name: data.Book.name,
         page: data.Book.page,
         author: data.Book.author,
@@ -67,8 +67,7 @@ const books = handleActions(
             }),
         [DELETE_BOOK_SUCCESS]: (state, action) =>
             produce(state, (draft) => {
-                draft.booksList.filter((book) => book.Book.id !== action.id); //book의 id를 넘겨야함
-                //이 작업 수행시 모든 유저에서도 map을 돌려서 이 책을 삭제해야하기 때문에 saga에서 같이 돌려주면 될듯
+                draft.booksList.filter((book) => book.Book.id !== action.id);
                 draft.deleteBookLoading = false;
                 draft.deleteBookDone = true;
             }),
