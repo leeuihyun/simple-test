@@ -16,6 +16,7 @@ const Head = styled.div`
     align-items: center;
     .logo {
         font-family: "Ssurround";
+        font-size: 1.5rem;
     }
     .navigation {
         font-family: "Ssurround";
@@ -32,29 +33,13 @@ const Head = styled.div`
         color: black;
     }
 `;
-function Header() {
+function Header({ children }) {
     return (
         <Head>
-            <div className="logo">Books</div>
-            <div className="navigation">
-                <ul>
-                    <li>
-                        <div>
-                            <Link to="/login">로그인</Link>
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <Link to="/bookregister">책등록</Link>
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <Link to="/signup">회원가입</Link>
-                        </div>
-                    </li>
-                </ul>
+            <div className="logo">
+                <Link to="/">Books</Link>
             </div>
+            {children}
         </Head>
     );
 }
