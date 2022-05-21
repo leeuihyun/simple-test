@@ -13,7 +13,7 @@ const Container = styled.div`
 const Box = styled.div`
     display: flex;
 `;
-function Books() {
+function ImagesPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [viewContentCount, setViewContentCount] = useState(10);
     const [data, setData] = useState([]);
@@ -47,4 +47,4 @@ function Books() {
     );
 }
 
-export default Books;
+export default ImagesPage;

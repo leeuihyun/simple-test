@@ -1,148 +1,25 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
-import logo from "../images/logo_transparent.png";
+import styled from "styled-components";
 import about from "/Users/iuihyeon/Desktop/or/simple-test/4/src/images/reading-g147138a09_1920.jpg";
 import person from "/Users/iuihyeon/Desktop/or/simple-test/4/src/images/white-male-gc118c610a_1280.jpg";
-import { Link } from "react-router-dom";
-import RotationBook from "./RotationBook";
 import { useSelector } from "react-redux";
-import Footer from "./Footer";
+import Footer from "../subComponent/Footer";
+import Header from "../subComponent/Header";
+import About from "../subComponent/About";
+import Introduce from "../subComponent/Introduce";
+import TextBoxWrapper from "./TextBoxWrapper";
+import RotateBox from "../subComponent/RotateBox";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     width: 100%;
     height: 100%;
 `;
-const Header = styled.div`
-    z-index: 999;
-    position: fixed;
-    display: flex;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 10vh;
-    background-color: white;
-    color: black;
-    justify-content: space-evenly;
-    align-items: center;
-    .logo {
-        font-family: "Ssurround";
-    }
-    .navigation {
-        font-family: "Ssurround";
-        ul {
-            display: flex;
-            list-style: none;
-        }
-        li + li {
-            margin-left: 3rem;
-        }
-    }
-    a {
-        text-decoration: none;
-        color: black;
-    }
-`;
-const About = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    width: 100%;
-    height: 100vh;
-    img {
-        width: 100%;
-        height: 100%;
-        filter: brightness(55%);
-        //opacity: 0.6;
-    }
-    .text {
-        padding: 1rem;
-        position: absolute;
-        color: white;
-        font-family: "Ssurround";
-        font-weight: bold;
-        font-size: 5rem;
-        top: 50%;
-        left: 50%;
-        text-shadow: 4px 4px 4px gray;
-        transform: translate(-50%, -50%); //중앙 정렬 하기 위함.
-    }
-    position: relative;
-`;
-const Introduce = styled.div`
-    width: 100%;
-    height: 30vh;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    .intro {
-        font-family: "Ssurround";
-        text-align: center;
-        color: black;
-    }
-    .intro_image {
-        display: flex;
-        float: right;
-        p {
-            font-family: "Ssurround";
-        }
-        img {
-            width: 4rem;
-            height: 4rem;
-        }
-    }
-`;
-const RotationAnimation = keyframes`
-    from{
-        transform : translateX(-100%);
-    }
-    to{
-        transform : translateX(100%);
-    }
-`;
-const TextBoxWrapper = styled.div`
-    width: 100%;
-    height: 10vh;
-    font-family: "Ssurround";
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 3rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 2px gray;
-`;
-const RotateWrapper = styled.div`
-    display: flex;
-    animation: ${RotationAnimation} 4s 1s ease-in-out infinite alternate;
-    margin-left: 5rem;
-`;
-const RotateBox = styled.div`
-    width: 100%;
-    height: 30vh;
-    background-color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
 function MainLayout() {
     const { booksList } = useSelector((state) => state.books);
-    //const randomBookLength = Math.floor(Math.random() * booksList.length); RotationBook의 props => booksList[randomBookLength] 주면 될 것 같음
-    function arrPush() {
-        const arr = [];
-        for (let i = 0; i < 5; i++) {
-            arr.push(
-                <RotateWrapper>
-                    <RotationBook />
-                </RotateWrapper>
-            );
-        }
-        return arr;
-    }
     return (
         <Container>
             <Header>
-                <div className="logo">Books</div>
                 <div className="navigation">
                     <ul>
                         <li>
@@ -179,23 +56,15 @@ function MainLayout() {
                 <div className="intro_image">
                     <p>
                         친구들과 함께 사용하세요! <br /> https://www.naver.com
+                        클릭시 복사 기능 만드려 함
                     </p>
                     <img src={person} alt="person_image" />
                 </div>
             </Introduce>
             <TextBoxWrapper>이런 책들은 어떠신가요 ?</TextBoxWrapper>
-            <RotateBox>{arrPush()}</RotateBox>
-            <Footer>개발자 : 이의현</Footer>
+            <RotateBox></RotateBox>
+            <Footer>made by Vanc</Footer>
         </Container>
-        /*`<div class="container">
-            <header></header> dd
-            <section class="about"></section> dd
-            <section class="introduce"></section> dd
-            <section className="callAction"></section>
-            등록되어 있는 책 보기
-            <section class="how"></section>
-            <footer></footer>
-        </div>*/
     );
 }
 

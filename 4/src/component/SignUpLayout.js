@@ -1,9 +1,9 @@
 import React, { useCallback } from "react";
-import Header from "../subComponent/Header";
-import useTool from "../hook/useTool";
-import { useSelector, useDispatch } from "react-redux";
-import { LOG_IN_REQUEST } from "../reducers/user";
 import styled from "styled-components";
+import Header from "../subComponent/Header";
+import { useSelector, useDispatch } from "react-redux";
+import useTool from "../hook/useTool";
+import { SIGN_UP_REQUEST } from "../reducers/user";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
@@ -13,24 +13,34 @@ const Container = styled.div`
 const Form = styled.div`
     margin-top: 5rem;
 `;
-function LoginLayout() {
+function SignUpLayout() {
+    const [name, onChangeName, setName] = useTool("");
+    const [city, onChangeCity, setCity] = useTool("");
+    const [age, onChangeAge, setAge] = useTool("");
     const [email, onChangeEmail, setEmail] = useTool("");
     const [password, onChangePassword, setPassword] = useTool("");
+
     const dispatch = useDispatch();
     const onSubmitForm = useCallback(
         (e) => {
             e.preventDefault();
             dispatch({
-                type: LOG_IN_REQUEST,
+                type: SIGN_UP_REQUEST,
                 data: {
                     email: email,
                     password: password,
+                    name: name,
+                    city: city,
+                    age: age,
                 },
             });
+            setName("");
+            setCity("");
+            setAge("");
             setEmail("");
             setPassword("");
         },
-        [email, password]
+        [name, city, age, email, password]
     );
     return (
         <Container>
@@ -38,13 +48,43 @@ function LoginLayout() {
                 <div className="navigation">
                     <ul>
                         <li>
-                            <Link to="signup">회원가입</Link>
+                            <Link to="/login">로그인</Link>
                         </li>
                     </ul>
                 </div>
             </Header>
             <Form>
                 <form onSubmit={onSubmitForm}>
+                    <div>
+                        <label htmlFor="name">이름</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value={name}
+                            id="name"
+                            onChange={onChangeName}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="city">거주지</label>
+                        <input
+                            type="text"
+                            name="city"
+                            value={city}
+                            id="city"
+                            onChange={onChangeCity}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="age">나이</label>
+                        <input
+                            type="text"
+                            name="age"
+                            value={age}
+                            id="age"
+                            onChange={onChangeAge}
+                        />
+                    </div>
                     <div>
                         <label htmlFor="email">이메일</label>
                         <input
@@ -58,7 +98,7 @@ function LoginLayout() {
                     <div>
                         <label htmlFor="password">비밀번호</label>
                         <input
-                            type="text"
+                            type="password"
                             name="password"
                             value={password}
                             id="password"
@@ -66,7 +106,7 @@ function LoginLayout() {
                         />
                     </div>
                     <div>
-                        <button type="submit">로그인</button>
+                        <button type="submit">버튼</button>
                     </div>
                 </form>
             </Form>
@@ -74,4 +114,4 @@ function LoginLayout() {
     );
 }
 
-export default LoginLayout;
+export default SignUpLayout;
