@@ -20,7 +20,7 @@ const Ab = styled.div`
         color: white;
         font-family: "Ssurround";
         font-weight: bold;
-        font-size: 5rem;
+        font-size: 4.5rem;
         top: 50%;
         left: 50%;
         text-shadow: 4px 4px 4px gray;

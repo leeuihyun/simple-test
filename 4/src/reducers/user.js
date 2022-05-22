@@ -6,11 +6,9 @@ export const LOG_IN_REQUEST = "LOG_IN_REQUEST";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
 export const LOG_IN_FAILURE = "LOG_IN_FAILURE";
 
-export const ADD_BOOK_USER_SUCCESS = "ADD_BOOK_USER_SUCCESS";
+export const ADD_IMAGE_USER_SUCCESS = "ADD_IMAGE_USER_SUCCESS";
 
-export const DELETE_BOOK_USER_SUCCESS = "DELETE_BOOK_USER_SUCCESS";
-
-export const FIX_BOOK_USER_SUCCESS = "FIX_BOOK_USER_SUCCESS";
+export const DELETE_IMAGE_USER_SUCCESS = "DELETE_IMAGE_USER_SUCCESS";
 
 export const SIGN_UP_REQUEST = "SIGN_UP_REQUEST";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
@@ -25,8 +23,7 @@ const initialState = {
             name: "leeuihyun",
             city: "seoul",
             age: 26,
-            items: [],
-            buy: [],
+            myImage: [],
         },
     ], //모든 유저 정보 담고 있는 배열
     user: null, //현재 로그인한 유저 정보
@@ -40,8 +37,7 @@ const initialState = {
 
 const dummyUser = (data) => ({
     id: data.id,
-    items: data.items,
-    buy: data.buy,
+    myImage: data.myImage,
 });
 
 const dummyAllUser = (data) => ({
@@ -51,8 +47,7 @@ const dummyAllUser = (data) => ({
     name: data.name,
     city: data.city,
     age: data.age,
-    items: [],
-    buy: [],
+    myImage: [],
 });
 const user = handleActions(
     {
@@ -72,7 +67,6 @@ const user = handleActions(
                 if (us) {
                     draft.user = dummyUser(us);
                 }
-
                 draft.logInLoading = false;
                 draft.logInDone = true;
             }),
@@ -81,28 +75,29 @@ const user = handleActions(
                 draft.logInLoading = false;
                 draft.logInError = action.error;
             }),
-        [ADD_BOOK_USER_SUCCESS]: (state, action) =>
+        [ADD_IMAGE_USER_SUCCESS]: (state, action) =>
             produce(state, (draft) => {
                 const findUser = draft.allUsers.find(
                     (v) => v.id === action.data.User.id
                 );
-                findUser.items.unshift(action.data.Book);
-                draft.user.items.unshift(action.data.Book.id);
+                findUser.myImage.unshift(action.data); // 서버 역할을 하기 때문에 전체에서도 추가해준다.
+                draft.user.myImage.unshift({
+                    id: action.data.Data.id,
+                    name: action.data.Data.name,
+                    tag: action.data.Data.tag,
+                    author: action.data.Data.author,
+                    path: action.data.Data.file.path,
+                    preview: action.data.Data.file.preview,
+                });
             }),
-        [DELETE_BOOK_USER_SUCCESS]: (state, action) =>
+        [DELETE_IMAGE_USER_SUCCESS]: (state, action) =>
             produce(state, (draft) => {
                 const findUser = draft.allUsers.find(
                     (v) => v.id === action.data.User.id
                 );
-                findUser.items = findUser.items.filter(
-                    (v) => v.id !== action.data.Book.id
-                );
-                draft.user.items = draft.user.items.filter(
-                    (v) => v !== action.data.Book.id
-                );
+                findUser.myImage.filter((v) => v.id !== action.data.Data.id);
+                draft.user.myImage.filter((v) => v.id !== action.data.Data.id);
             }),
-        [FIX_BOOK_USER_SUCCESS]: (state, action) =>
-            produce(state, (draft) => {}), //수정해야함
         [SIGN_UP_REQUEST]: (state, action) =>
             produce(state, (draft) => {
                 draft.signUpLoading = true;
