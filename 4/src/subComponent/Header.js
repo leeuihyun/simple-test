@@ -37,7 +37,7 @@ function Header({ children }) {
     return (
         <Head>
             <div className="logo">
-                <Link to="/">Books</Link>
+                <Link to="/">Y•MG picker</Link>
             </div>
             {children}
         </Head>

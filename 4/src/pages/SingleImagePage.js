@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
+import MyPage from "../component/MyPage";
+import { useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
+function SingleImagePage({ history }) {
+    const { user } = useSelector((state) => state.user);
 
-function SingleImagePage() {
-    return <div>SingleImagePage</div>;
+    useEffect(() => {
+        if (!user) {
+            history.push("/");
+        }
+    }, []);
+    return <MyPage></MyPage>;
 }
 
-export default SingleImagePage;
+export default withRouter(SingleImagePage);

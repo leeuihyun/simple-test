@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import about from "/Users/iuihyeon/Desktop/or/simple-test/4/src/images/reading-g147138a09_1920.jpg";
+import about from "/Users/iuihyeon/Desktop/or/simple-test/4/src/images/galaxy-g6d8c6804f_1920.jpg";
 import person from "/Users/iuihyeon/Desktop/or/simple-test/4/src/images/white-male-gc118c610a_1280.jpg";
 import { useSelector } from "react-redux";
 import Footer from "../subComponent/Footer";
@@ -16,7 +16,7 @@ const Container = styled.div`
     height: 100%;
 `;
 function MainLayout() {
-    const { booksList } = useSelector((state) => state.books);
+    const { dataList } = useSelector((state) => state.images);
     return (
         <Container>
             <Header>
@@ -29,7 +29,7 @@ function MainLayout() {
                         </li>
                         <li>
                             <div>
-                                <Link to="/bookregister">책등록</Link>
+                                <Link to="/imageregister">이미지등록</Link>
                             </div>
                         </li>
                         <li>
@@ -37,21 +37,25 @@ function MainLayout() {
                                 <Link to="/signup">회원가입</Link>
                             </div>
                         </li>
+                        <li>
+                            <div>
+                                <Link to="/image">임시 마이 페이지</Link>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </Header>
             <About>
                 <img src={about} alt="img" />
-                <div className="text">서로의 책 공유하기</div>
+                <div className="text">멋진 이미지 공유하기</div>
             </About>
             <Introduce>
                 <div className="intro">
-                    서로의 책을 공유하고 <br />
-                    다양한 책들이 당신을 기다리고 있습니다!
+                    멋진 사진을 공유해 보세요! <br />
+                    많은 이미지가 있으니 태그 별로 찾아보세요!
                     <br />
-                    삶의 질을 향상 시켜 보세요!
+                    검색기능을 통해서 이미지를 찾아보세요!
                     <br />
-                    찾고 있는 책이 있다면 검색기능을 사용해보세요!
                 </div>
                 <div className="intro_image">
                     <p>
@@ -61,8 +65,9 @@ function MainLayout() {
                     <img src={person} alt="person_image" />
                 </div>
             </Introduce>
-            <TextBoxWrapper>이런 책들은 어떠신가요 ?</TextBoxWrapper>
+            <TextBoxWrapper>혹시 이런 사진을 찾고 계셨나요 ?</TextBoxWrapper>
             <RotateBox></RotateBox>
+            <div>좋아요를 많이 받은 랭킹입니다 10위까지 표시</div>
             <Footer>made by Vanc</Footer>
         </Container>
     );

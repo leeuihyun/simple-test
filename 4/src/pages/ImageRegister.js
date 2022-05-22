@@ -1,15 +1,16 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import useTool from "../hook/useTool";
 import { v4 as uuidv4 } from "uuid";
 import { ADD_DATA_REQUEST } from "../reducers/images";
+import Dropzone from "../component/util/Dropzone";
 
 function ImageRegister() {
     const dispatch = useDispatch();
     const [name, onChangeName, setName] = useTool("");
     const [tag, onChangeTag, setTag] = useTool("");
     const [explanation, onChangeExplanation, setExplanation] = useTool("");
-    const [file, onChangeFile, setFile] = useTool("");
+    const [file, setFile] = useState(null);
     const [author, onChangeAuthor, setAuthor] = useTool("");
 
     const selectList = [
@@ -97,6 +98,7 @@ function ImageRegister() {
                         onChange={onChangeExplanation}
                     />
                 </div>
+                <Dropzone setFile={setFile}></Dropzone>
                 <button type="submit">등록</button>
             </form>
         </div>
