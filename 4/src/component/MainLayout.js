@@ -24,6 +24,11 @@ function MainLayout() {
                     <ul>
                         <li>
                             <div>
+                                <Link to="/signup">회원가입</Link>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
                                 <Link to="/login">로그인</Link>
                             </div>
                         </li>
@@ -34,12 +39,12 @@ function MainLayout() {
                         </li>
                         <li>
                             <div>
-                                <Link to="/signup">회원가입</Link>
+                                <Link to="/image">임시 마이 페이지</Link>
                             </div>
                         </li>
                         <li>
                             <div>
-                                <Link to="/image">임시 마이 페이지</Link>
+                                <Link to="/images">전체 사진 보기</Link>
                             </div>
                         </li>
                     </ul>

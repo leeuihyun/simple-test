@@ -9,9 +9,11 @@ const Box = styled.div`
     align-items: center;
     font-family: "Ssurround";
     ul {
+        padding: 0;
         display: flex;
-        li + li {
-            margin-left: 1rem;
+        li {
+            margin: 0 auto;
+            list-style: none;
         }
     }
 `;
@@ -32,15 +34,18 @@ function Pagination({ setCurrentPage, viewContentCount, length }) {
     return (
         <Box>
             <PrevButton>이전</PrevButton>
-            <ul>
-                {pageNumbers.map((item) => (
-                    <li key={item}>
-                        <button onClick={() => setCurrentPage(item)}>
-                            {item}
-                        </button>
-                    </li>
-                ))}
-            </ul>
+            <div>
+                <ul>
+                    {pageNumbers.map((item) => (
+                        <li key={item}>
+                            <button onClick={() => setCurrentPage(item)}>
+                                {item}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
             <NextButton>다음</NextButton>
         </Box>
     );
