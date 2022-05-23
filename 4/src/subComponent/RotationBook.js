@@ -1,17 +1,37 @@
 import React, { useCallback } from "react";
 import styled from "styled-components";
-
+import { useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 const Box = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     width: 7rem;
     height: 10rem;
     border-radius: 5px;
     background-color: white;
 `;
-function RotationBook({ book }) {
-    const onClickBox = useCallback((e) => {
-        console.log("click box");
+function RotationBook() {
+    const { dataList } = useSelector((state) => state.images);
+    const randomIndex = Math.floor(Math.random() * dataList.length);
+    const onClickImg = useCallback((e) => {
+        console.log(e.target);
+        console.log(e.currentTarget.getAttribute("value"));
     }, []);
-    return <Box onClick={onClickBox}>box</Box>;
+
+    return (
+        <Box key={uuidv4()}>
+            <img
+                src={dataList[randomIndex].Data.file.preview}
+                value={dataList[randomIndex].Data.id}
+                alt="preview"
+                width="100%"
+                height="100%"
+                onClick={onClickImg}
+            />
+        </Box>
+    );
 }
 
 export default RotationBook;
