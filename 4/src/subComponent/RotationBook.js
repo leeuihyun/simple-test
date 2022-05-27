@@ -22,7 +22,7 @@ function RotationBook() {
 
     return (
         <div>
-            {dataList ? (
+            {dataList.length > 0 ? (
                 <Box key={uuidv4()}>
                     <img
                         src={dataList[randomIndex].Data.file.preview}
