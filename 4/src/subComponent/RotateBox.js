@@ -26,7 +26,6 @@ const Box = styled.div`
 `;
 
 function RotateBox({ children }) {
-    //const randomBookLength = Math.floor(Math.random() * booksList.length); RotationBook의 props => booksList[randomBookLength] 주면 될 것 같음
     function arrPush() {
         const arr = [];
         for (let i = 0; i < 5; i++) {
