@@ -21,16 +21,22 @@ function RotationBook() {
     }, []);
 
     return (
-        <Box key={uuidv4()}>
-            <img
-                src={dataList[randomIndex].Data.file.preview}
-                value={dataList[randomIndex].Data.id}
-                alt="preview"
-                width="100%"
-                height="100%"
-                onClick={onClickImg}
-            />
-        </Box>
+        <div>
+            {dataList ? (
+                <Box key={uuidv4()}>
+                    <img
+                        src={dataList[randomIndex].Data.file.preview}
+                        value={dataList[randomIndex].Data.id}
+                        alt="preview"
+                        width="100%"
+                        height="100%"
+                        onClick={onClickImg}
+                    />
+                </Box>
+            ) : (
+                <Box key={uuidv4()}>box</Box>
+            )}
+        </div>
     );
 }
 
