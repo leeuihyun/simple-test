@@ -1,19 +1,21 @@
 import React, { useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import useTool from "../hook/useTool";
-import { stringify, v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { ADD_DATA_REQUEST } from "../reducers/images";
 import Dropzone from "../component/util/Dropzone";
 
 function ImageRegister() {
     const dispatch = useDispatch();
     const [name, onChangeName, setName] = useTool("");
-    const [tag, onChangeTag, setTag] = useTool("");
+    const [tag, setTag] = useState("");
     const [explanation, onChangeExplanation, setExplanation] = useTool("");
     const [file, setFile] = useState(null);
     const [author, onChangeAuthor, setAuthor] = useTool("");
-    const [serverData, setServerData] = useState("");
 
+    const onChangeTag = (e) => {
+        setTag(e.target.value);
+    };
     const selectList = [
         "일상",
         "자연",
@@ -47,11 +49,7 @@ function ImageRegister() {
                     },
                 },
             });
-            setName("");
-            setAuthor("");
-            setExplanation("");
-            setTag("");
-            setFile("");
+
             if (localStorage.data === undefined) {
                 localStorage.setItem("data", JSON.stringify([]));
             }
@@ -69,6 +67,11 @@ function ImageRegister() {
                     file: file,
                 },
             });
+            setName("");
+            setAuthor("");
+            setExplanation("");
+            setTag("");
+            setFile("");
             localStorage.setItem("data", JSON.stringify(dataFile));
         },
         [name, author, explanation, tag, file]
