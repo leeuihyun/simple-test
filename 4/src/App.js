@@ -7,8 +7,18 @@ import SingleImagePage from "./pages/SingleImagePage";
 import ImageRegister from "./pages/ImageRegister";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { CHECK_ALL_USERS } from "./reducers/user";
 
 function App() {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch({
+            type: CHECK_ALL_USERS,
+        });
+    }, []);
+
     return (
         <>
             <Route exact path="/" component={Main} />
