@@ -14,6 +14,8 @@ export const SIGN_UP_REQUEST = "SIGN_UP_REQUEST";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 
+export const CHECK_ALL_USERS = "CHECK_ALL_USERS";
+
 const initialState = {
     allUsers: [
         {
@@ -64,8 +66,20 @@ const user = handleActions(
                         v.email === action.data.email &&
                         v.password === action.data.password
                 );
+
                 if (us) {
                     draft.user = dummyUser(us);
+                }
+                const allUsersData = JSON.parse(
+                    localStorage.getItem("allUsers")
+                );
+                const fs = allUsersData.find(
+                    (v) =>
+                        v.email === action.data.email &&
+                        v.password === action.data.password
+                );
+                if (fs) {
+                    console.log("찾았습니다!");
                 }
                 draft.logInLoading = false;
                 draft.logInDone = true;
@@ -89,6 +103,20 @@ const user = handleActions(
                     path: action.data.Data.file.path,
                     preview: action.data.Data.file.preview,
                 });
+                var allUsersData = JSON.parse(localStorage.getItem("allUsers"));
+                allUsersData.forEach((v) => {
+                    if (v.id === action.data.User.id) {
+                        v.myImage.unshift({
+                            id: action.data.Data.id,
+                            name: action.data.Data.name,
+                            tag: action.data.Data.tag,
+                            author: action.data.Data.author,
+                            path: action.data.Data.file.path,
+                            preview: action.data.Data.file.preview,
+                        });
+                    }
+                });
+                localStorage.setItem("allUsers", JSON.stringify(allUsersData));
             }),
         [DELETE_IMAGE_USER_SUCCESS]: (state, action) =>
             produce(state, (draft) => {
@@ -97,6 +125,14 @@ const user = handleActions(
                 );
                 findUser.myImage.filter((v) => v.id !== action.data.Data.id);
                 draft.user.myImage.filter((v) => v.id !== action.data.Data.id);
+                const allUsersData = JSON.parse(
+                    localStorage.getItem("allUsers")
+                );
+                allUsersData.forEach((v) => {
+                    if (v.id === action.data.User.id) {
+                        v.myImage.filter((t) => t.id !== action.data.Data.id);
+                    }
+                });
             }),
         [SIGN_UP_REQUEST]: (state, action) =>
             produce(state, (draft) => {
@@ -107,6 +143,9 @@ const user = handleActions(
         [SIGN_UP_SUCCESS]: (state, action) =>
             produce(state, (draft) => {
                 draft.allUsers.push(dummyAllUser(action.data));
+                var allUsersData = JSON.parse(localStorage.getItem("allUsers"));
+                allUsersData.unshift(dummyAllUser(action.data));
+                localStorage.setItem("allUsers", JSON.stringify(allUsersData));
                 draft.signUpLoading = false;
                 draft.signUpDone = true;
             }),
@@ -114,6 +153,26 @@ const user = handleActions(
             produce(state, (draft) => {
                 draft.signUpLoading = false;
                 draft.signUpError = action.error;
+            }),
+        [CHECK_ALL_USERS]: (state, action) =>
+            produce(state, (draft) => {
+                if (!JSON.parse(localStorage.getItem("allUsers"))) {
+                    var allUsersData = [
+                        {
+                            id: "random_1_1",
+                            email: "lee",
+                            password: "123123",
+                            name: "leeuihyun",
+                            city: "seoul",
+                            age: 26,
+                            myImage: [],
+                        },
+                    ];
+                    localStorage.setItem(
+                        "allUsers",
+                        JSON.stringify(allUsersData)
+                    );
+                }
             }),
     },
     initialState
