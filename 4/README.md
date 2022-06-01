@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+## 이미지 공유 사이트
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+현재는 서버없이 localStorage와 전역상태관리를 통해서만 프로젝트를 진행중이다.
 
-## Available Scripts
+처음에는 redux를 통해서 하나의 user가 회원가입을 하면 전체 유저 state에도 추가하고, redux안에서 서버역할을 하는 것처럼 구현했었는데,
 
-In the project directory, you can run:
+굳이 이렇게 한 이유는 서버가 없는 프로젝트이지만 마치 서버가 있는 것처럼, 흐름을 파악하며 만들어보고 싶었기 때문이다.
 
-### `npm start`
+따라서 전체 유저 정보가 저장되는 것은 localStorage에 저장된다. 만약 회원가입을 한다면 localStorage의 allUsers 키에 추가가 된다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```javascript
+const allUsersData = JSON.parse(localStorage.getItem("allUsers"));
+allUsersData.unshift({
+    //추가할 유저 정보
+});
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+위와 같은 형식으로 진행 된다. 또한 로그인을 한다면 localStorage에서 받아온 유저정보와 로그인 이메일을 확인하여 로그인 시켜준다.
 
-### `npm test`
+이미지 파일에 관해서는 전체 이미지를 저장하는 데이터를 원래는 서버의 db에서 가지고 있지만, 이 또한 localStorage를 이용해 관리를 한다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+모든 이미지 정보를 보여주는 페이지인 `/images` 에서 많은 데이터들을 보여주기 위해서 페이지네이션을 이용했는데, 원래 페이지네이션을 서버와 연동하여 쓰기 위해서는
+페이지 별로 서버에서 받아온 데이터만을 이용해서 사용해야 한다.
+하지만 지금은 그렇지 않기에 전체 데이터를 저장하고 페이지네이션을 구현했다.
 
-### `npm run build`
+-   서버와 통신하여 페이지네이션을 하는 것을 공부하고 블로그에서 서버와 연동하여 페이지네이션을 하는 것을 기록하고, 다음 팀프로젝트 때 사용해봐야겠다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### localStorage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+localStorage는 원래 서버에서 받은 정보 토큰 등등을 브라우저에 저장해서 로그인이 풀리지 않게 하기 위해서 많이 사용한다.
