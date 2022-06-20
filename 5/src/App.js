@@ -2,10 +2,20 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { counterActions } from "./slice/counterSlice";
 import { useCallback } from "react";
+import { getData } from "./slice/thunkSlice";
 
 function App() {
     const dispatch = useDispatch();
-    const { value } = useSelector((state) => state.counter);
+
+    const onClickButton = useCallback(() => {
+        dispatch(getData());
+    }, []);
+    return (
+        <div>
+            <button onClick={onClickButton}>getData</button>
+        </div>
+    );
+    /*const { value } = useSelector((state) => state.counter);
     const onChangePlus = useCallback(() => {
         dispatch(counterActions.plus({ data: 2 }));
     }, []);
@@ -18,7 +28,7 @@ function App() {
             <button onClick={onChangeMinus}>-</button>
             <div>{value}</div>
         </div>
-    );
+    );*/
 }
 
 export default App;
