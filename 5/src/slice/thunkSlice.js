@@ -31,6 +31,8 @@ export const getMethod = createAsyncThunk(
             );
             console.log("getMethod start!");
             console.log(todosId);
+            console.log(res);
+
             //console.log(res);
             return res.data;
         } catch (error) {
