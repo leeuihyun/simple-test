@@ -9,10 +9,11 @@ const counterSlice = createSlice({
     initialState,
     reducers: {
         plus(state, action) {
-            state.value = state.value + action.payload.data;
+            state.value = state.value + parseInt(action.payload);
+            console.log(action.payload);
         },
         minus(state, action) {
-            state.value = state.value - action.payload.data;
+            state.value = state.value - parseInt(action.payload);
         },
     },
 });
