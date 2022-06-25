@@ -5,18 +5,32 @@ const Header = styled.div`
     color: black;
     text-transform: uppercase;
     font-size: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+    //justify-content: space-between;
+    text-align: center;
     padding: 1rem;
     z-index: 1;
     color: white;
+    label {
+        background-color: blue;
+    }
 `;
 
+const Hambuger = styled.div`
+    position: absolute;
+    left: 5rem;
+    background-color: #104279;
+    color: white;
+    font-size: 40px;
+`;
 const InputField = styled.div`
+    display: flex;
+    justify-content: center;
+
     form {
         display: flex;
         width: 90%;
+        justify-content: center;
         position: relative;
         align-items: center;
         input {
@@ -67,9 +81,8 @@ const App: React.FC = () => {
     return (
         <div>
             <Header>
-                <div>dfa</div>
-                task
-                <div>dfa</div>
+                <Hambuger>menu</Hambuger>
+                <label>TASK</label>
             </Header>
             <InputField>
                 <form>
