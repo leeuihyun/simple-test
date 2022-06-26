@@ -69,14 +69,14 @@ const InputField = styled.div`
     }
 `;
 const App: React.FC = () => {
-    const [text, setText] = useState<string>("");
+    const [todo, setTodo] = useState<string>("");
 
     const onClick = useCallback(
         (e: React.FormEvent) => {
             e.preventDefault();
-            console.log(text);
+            console.log(todo);
         },
-        [text]
+        [todo]
     );
     return (
         <div>
@@ -90,9 +90,9 @@ const App: React.FC = () => {
                         type="text"
                         placeholder="push todo"
                         onChange={(e) => {
-                            setText(e.target.value);
+                            setTodo(e.target.value);
                         }}
-                        value={text}
+                        value={todo}
                     />
                     <button onClick={onClick}>Go</button>
                 </form>
