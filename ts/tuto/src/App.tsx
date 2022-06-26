@@ -72,7 +72,7 @@ const App: React.FC = () => {
     const [text, setText] = useState<string>("");
 
     const onClick = useCallback(
-        (e: any) => {
+        (e: React.FormEvent) => {
             e.preventDefault();
             console.log(text);
         },
