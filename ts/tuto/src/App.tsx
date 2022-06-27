@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useCallback } from "react";
+import card from "./card";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./store";
+import { todosActions } from "./reducers/todosSlice";
+
 const Header = styled.div`
     color: black;
     text-transform: uppercase;
@@ -70,11 +75,27 @@ const InputField = styled.div`
 `;
 const App: React.FC = () => {
     const [todo, setTodo] = useState<string>("");
+    const dispatch = useDispatch();
+    const { todos } = useSelector((state: RootState) => state.todos);
+    const onDelete = useCallback((e: any) => {
+        e.preventDefault();
+    }, []);
+    const onClear = useCallback((e: any) => {
+        e.preventDefault();
+    }, []);
 
     const onClick = useCallback(
         (e: React.FormEvent) => {
             e.preventDefault();
             console.log(todo);
+            dispatch(
+                todosActions.addTodo({
+                    data: {
+                        id: "1",
+                        content: todo,
+                    },
+                })
+            );
         },
         [todo]
     );
@@ -89,13 +110,14 @@ const App: React.FC = () => {
                     <input
                         type="text"
                         placeholder="push todo"
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                             setTodo(e.target.value);
                         }}
                         value={todo}
                     />
                     <button onClick={onClick}>Go</button>
                 </form>
+                <div></div>
             </InputField>
         </div>
     );
