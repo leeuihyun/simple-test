@@ -1,8 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+interface todosType {
+    id?: string;
+    content?: string;
+}
+
 interface stateType {
-    todos: string[];
+    todos: Array<todosType>;
 }
 
 const initialState: stateType = {
@@ -14,7 +19,12 @@ const todosSlice = createSlice({
     initialState,
     reducers: {
         addTodo(state, action) {
-            state.todos.concat(action.payload.data);
+            state.todos = state.todos.concat(action.payload.data);
+        },
+        deleteTodo(state, action) {
+            state.todos = state.todos.filter(
+                (v) => v.id !== action.payload.data.id
+            );
         },
     },
 });
