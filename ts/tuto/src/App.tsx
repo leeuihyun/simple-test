@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useCallback } from "react";
-import card from "./card";
+import Card from "./card";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./store";
 import { todosActions } from "./reducers/todosSlice";
@@ -31,7 +31,7 @@ const Hambuger = styled.div`
 const InputField = styled.div`
     display: flex;
     justify-content: center;
-
+    width: 100%;
     form {
         display: flex;
         width: 90%;
@@ -77,12 +77,6 @@ const App: React.FC = () => {
     const [todo, setTodo] = useState<string>("");
     const dispatch = useDispatch();
     const { todos } = useSelector((state: RootState) => state.todos);
-    const onDelete = useCallback((e: any) => {
-        e.preventDefault();
-    }, []);
-    const onClear = useCallback((e: any) => {
-        e.preventDefault();
-    }, []);
 
     const onClick = useCallback(
         (e: React.FormEvent) => {
@@ -91,7 +85,7 @@ const App: React.FC = () => {
             dispatch(
                 todosActions.addTodo({
                     data: {
-                        id: "1",
+                        id: Date.now(),
                         content: todo,
                     },
                 })
@@ -117,8 +111,22 @@ const App: React.FC = () => {
                     />
                     <button onClick={onClick}>Go</button>
                 </form>
-                <div></div>
             </InputField>
+
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                }}
+            >
+                {todos?.map((v) => (
+                    <Card id={v.id} key={v.id}>
+                        {v.content}
+                    </Card>
+                ))}
+            </div>
         </div>
     );
 };

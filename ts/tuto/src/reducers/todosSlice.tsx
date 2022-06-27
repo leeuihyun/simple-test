@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+//import { createAsyncThunk } from "@reduxjs/toolkit";
 
 interface todosType {
-    id?: string;
+    id: number;
     content?: string;
 }
 
