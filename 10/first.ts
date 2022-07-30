@@ -1,21 +1,24 @@
-let a: string = "hello";
-a = "5";
-
-function add(a: number, b: number): number {
-    return a + b;
+function numOrStr(a: number | string) {
+    if (typeof a === "number") {
+        a.toFixed(1);
+    }
+    if (typeof a === "string") {
+        a.charAt(3);
+    }
 }
-const minus: (a: number, b: number) => number = (a, b) => a + b;
 
-type Add = (x: number, y: number) => number;
-const addTest: Add = (x, y) => {
-    return x + y;
-};
+numOrStr("123");
+numOrStr(1);
 
-addTest(1, 2);
-const arr: string[] = ["123", "456"];
-const arr2: Array<number> = [12, 3, 4]; //제네릭 형식
-const arr3: [number, number, string] = [12, 3, "4"]; //튜플형식
-const obj: { lat: number; lon: number } = {
-    lat: 36.5,
-    lon: 37.5,
-};
+function numOrNumArray(a: number | number[]) {
+    if (Array.isArray(a)) {
+        //number[]
+        a.concat(4);
+    }
+    if (typeof a === "number") {
+        a.toFixed(4);
+    }
+}
+
+numOrNumArray([1, 2, 3]);
+numOrNumArray(1);
