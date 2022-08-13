@@ -16,10 +16,9 @@ const Box = styled.div`
 interface PropsType {
     id: number;
     children: any;
-    key: number | string;
 }
 
-const Card: React.FC<PropsType> = ({ id, key, children }) => {
+const Card: React.FC<PropsType> = ({ id, children }) => {
     const dispatch = useDispatch();
     const { todos } = useSelector((state: RootState) => state.todos);
     const onClick = (e: any) => {
@@ -44,7 +43,7 @@ const Card: React.FC<PropsType> = ({ id, key, children }) => {
     );
 
     return (
-        <Box onClick={onClick} key={key}>
+        <Box onClick={onClick}>
             {children}
             <div
                 style={{

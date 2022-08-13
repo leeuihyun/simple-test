@@ -1,5 +1,7 @@
 const head: Element = document.querySelector("#head")!;
 //뒤에 ! => null | undefined가 아님을 개발자가 보증하는 것.
+//위와 같은 형식보다는 아래의 조건문을 통해 null | undefined를 구분지을 수 있기 때문에 위와 같은 방식은 추천하지 않음
+//추후에 변수가 사라지거나 변경을 할 때 에러가 날 것이기에
 if (head) {
     head.innerHTML = "hello_world";
     console.log(head);

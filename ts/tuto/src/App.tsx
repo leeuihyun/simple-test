@@ -122,9 +122,7 @@ const App: React.FC = () => {
                 }}
             >
                 {todos?.map((v) => (
-                    <Card id={v.id} key={v.id}>
-                        {v.content}
-                    </Card>
+                    <Card id={v.id}>{v.content}</Card>
                 ))}
             </div>
         </div>
