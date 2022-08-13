@@ -35,3 +35,23 @@ interface CraftBeer {
 const craft: CraftBeer = {
     name: "first",
 };
+
+//인터페이스 확장
+
+interface Person {
+    name: string;
+}
+
+interface Developer extends Person {
+    skill: string;
+}
+
+let fe = {} as Developer;
+
+fe.name = "ui hyun";
+fe.skill = "React";
+
+const feDevloper: Developer = {
+    name: "lee",
+    skill: "React, js, ts",
+};
