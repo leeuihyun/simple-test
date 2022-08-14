@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import TodoListItem from "./components/TodoListItem";
 
-const todo: Array<Todo> = [
+const initialTodos: Array<Todo> = [
     { text: "walk", complete: false },
     { text: "second", complete: true },
 ];
 
 function App() {
+    const [todos, setTodos] = useState(initialTodos);
     return (
         <>
-            {todo.map((v) => (
+            {initialTodos.map((v) => (
                 <TodoListItem todo={v} />
             ))}
         </>

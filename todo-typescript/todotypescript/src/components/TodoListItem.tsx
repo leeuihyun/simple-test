@@ -8,7 +8,7 @@ interface TodoListItemProps {
 
 function TodoListItem({ todo }: TodoListItemProps) {
     return (
-        <li>
+        <li style={{ textDecoration: todo.complete ? "line-through" : "none" }}>
             <input type="checkbox" checked={todo.complete} />
             {todo.text}
         </li>
