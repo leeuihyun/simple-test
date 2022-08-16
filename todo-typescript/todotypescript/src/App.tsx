@@ -8,11 +8,22 @@ const initialTodos: Array<Todo> = [
 
 function App() {
     const [todos, setTodos] = useState(initialTodos);
+    const toggle: ToggleTodo = (selectTodo: Todo) => {
+        const newTodos = todos.map((todo) => {
+            if (selectTodo === todo) {
+                return {
+                    ...todo,
+                    complete: !todo.complete,
+                };
+            }
+            return todo;
+        });
+        setTodos(newTodos);
+    };
     return (
         <>
-            {initialTodos.map((v) => (
-                <TodoListItem todo={v} />
-            ))}
+            <TodoListItem todo={todos[0]} toggle={toggle} />
+            <TodoListItem todo={todos[1]} toggle={toggle} />
         </>
     );
 }
